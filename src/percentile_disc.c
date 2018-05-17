@@ -15,6 +15,12 @@ DLLEXPORT my_bool percentile_disc_init(UDF_INIT *initid, UDF_ARGS *args, char *m
         return 1;
     }
 
+    if (args->args[1] == NULL) {
+        snprintf(message, MYSQL_ERRMSG_SIZE,
+                "percentile value cannot be NULL");
+        return 1;
+    }
+
     args->arg_type[0] = REAL_RESULT;
     args->arg_type[1] = REAL_RESULT;
 

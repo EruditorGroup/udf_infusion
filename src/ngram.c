@@ -16,6 +16,11 @@ DLLEXPORT my_bool ngram_init(UDF_INIT *initid, UDF_ARGS *args, char *message) {
             return 1;
     }
 
+    if (2 == args->arg_count && NULL == args->args[1]) {
+        strcpy(message, "size argument cannot be NULL");
+        return 1;
+    }
+
     initid->max_length = (args->lengths[0] + 1) * MAX_GRAM;
     initid->ptr = NULL;
     initid->const_item = 1;

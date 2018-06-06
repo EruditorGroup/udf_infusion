@@ -8,6 +8,12 @@ DLLEXPORT my_bool lesspartpct_init(UDF_INIT *initid, UDF_ARGS *args, char *messa
         return 1;
     }
 
+    if (args->args[1] == NULL) {
+        snprintf(message, MYSQL_ERRMSG_SIZE,
+                "limit value cannot be NULL");
+        return 1;
+    }
+
     args->arg_type[0] = REAL_RESULT;
     args->arg_type[1] = REAL_RESULT;
 
@@ -22,6 +28,9 @@ DLLEXPORT void lesspartpct_clear(UDF_INIT* initid, char* is_null, char *error) {
 
 DLLEXPORT void lesspartpct_add(UDF_INIT* initid, UDF_ARGS* args, char* is_null, char *error) {
     int type = 1;
+    if (NULL == args->args[0]) {
+        return;               
+    }
     LESSADD();
 }
 

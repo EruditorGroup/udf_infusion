@@ -15,6 +15,11 @@ DLLEXPORT my_bool cut_init(UDF_INIT *initid, UDF_ARGS *args, char *message) {
             return 1;
     }
 
+    if (NULL == args->args[1]) {
+        strcpy(message, "second argument cannot be null");
+        return 1;
+    }
+
     initid->max_length = args->lengths[0];
     initid->const_item = 1;
     initid->maybe_null = 1;
